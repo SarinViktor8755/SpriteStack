@@ -21,6 +21,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
     MyInputProcessor inputProcessor;
 
+    SpriteStack bash,bash1;
+
 
     @Override
     public void create() {
@@ -43,6 +45,18 @@ public class MyGdxGame extends ApplicationAdapter {
         viewport = new FitViewport(800, 480, camera);
         viewport.apply(); // true = center camera
 
+
+        bash = new SpriteStack(150,200, batch);
+        bash.addTexture(img1,8);
+        bash.addTexture(img3,5);
+        bash.addTexture(img1,8);
+        bash.addTexture(img3,5);
+
+        bash1 = new SpriteStack(1,0, batch);
+        bash1.addTexture(img1,8);
+        bash1.addTexture(img3,3);
+
+
     }
 
     @Override
@@ -64,26 +78,26 @@ public class MyGdxGame extends ApplicationAdapter {
 
         batch.setProjectionMatrix(camera.combined);
         batch.draw(img, -250, -300, 800, 800);
-        for (int xp = 0; xp < 10; xp++) {
-            for (int yp = 0; yp < 10; yp++) {
-                x = xp * 150;
-                y =  yp * 150;
-                float dx, dy;
-                dx = (camera.position.x - x) / -40;
-                dy = (camera.position.y - y) / -40;
-                //   System.out.println(dx);
-
-                for (int i = 0; i < 5; i++) {
-                    batch.draw(img1, x + i * dx, y + i * dy, 100, 100);
-                }
-
-                for (int i = 5; i < 10; i++) {
-                    batch.draw(img3, x + i * dx, y + i * dy, 100, 100);
-                }
-
-            }
-
-        }
+//        for (int xp = 0; xp < 10; xp++) {
+//            for (int yp = 0; yp < 10; yp++) {
+//                x = xp * 150;
+//                y =  yp * 150;
+//                float dx, dy;
+//                dx = (camera.position.x - x) / -40;
+//                dy = (camera.position.y - y) / -40;
+//                //   System.out.println(dx);
+//
+//                for (int i = 0; i < 5; i++) {
+//                    batch.draw(img1, x + i * dx, y + i * dy, 100, 100);
+//                }
+//
+//                for (int i = 5; i < 10; i++) {
+//                    batch.draw(img3, x + i * dx, y + i * dy, 100, 100);
+//                }
+//
+//            }
+//
+//        }
         ////////////////////////kresty
 
         x = - 50; y = - 100;
@@ -104,6 +118,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 //		batch.draw(img3, 0, 0,100,100);
+
+        this.bash.randerSpriteStack(camera.position.x,camera.position.y);
+        this.bash1.randerSpriteStack(camera.position.x,camera.position.y);
             batch.end();
 
     }
