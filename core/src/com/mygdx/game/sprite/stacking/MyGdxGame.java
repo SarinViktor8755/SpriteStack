@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
-    Texture img, img1, img2, img3,imgk1,imgk2;
+    Texture img, img1, img2, img3, imgk1, imgk2;
     OrthographicCamera camera;
     Viewport viewport;
 
@@ -21,7 +21,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     MyInputProcessor inputProcessor;
 
-    SpriteStack bash,bash1;
+    SpriteStack bash, bash1, krest;
 
 
     @Override
@@ -41,27 +41,35 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
         camera = new OrthographicCamera(800, 480);
-        camera.position.set(inputProcessor.getX(),inputProcessor.getY(), 0);
+        camera.position.set(inputProcessor.getX(), inputProcessor.getY(), 0);
         viewport = new FitViewport(800, 480, camera);
         viewport.apply(); // true = center camera
 
 
-        bash = new SpriteStack(150,200, batch);
-        bash.addTexture(img1,8);
-        bash.addTexture(img3,5);
-        bash.addTexture(img1,8);
-        bash.addTexture(img3,5);
+        bash = new SpriteStack(150, 200, batch);
+        bash.addTexture(img1, 8);
+        bash.addTexture(img3, 5);
+        bash.addTexture(img1, 8);
+        bash.addTexture(img3, 5);
 
-        bash1 = new SpriteStack(1,0, batch);
-        bash1.addTexture(img1,8);
-        bash1.addTexture(img3,3);
+        bash1 = new SpriteStack(1, 0, batch);
+        bash1.addTexture(img1, 8);
+        bash1.addTexture(img3, 3);
+
+        krest = new SpriteStack(-50, -100, batch);
+        krest.addTexture(imgk1, 20);
+        krest.addTexture(imgk2, 4);
+        krest.addTexture(imgk1, 10);
 
 
     }
 
     @Override
     public void render() {
-        camera.position.set(inputProcessor.getX(),inputProcessor.getY(),0);
+        camera.position.set(inputProcessor.getX(), inputProcessor.getY(), 0);
+        camera.rotate(inputProcessor.rcam);
+        //inputProcessor.rcam = 0;
+        //   System.out.println(camera.up);
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -73,55 +81,15 @@ public class MyGdxGame extends ApplicationAdapter {
 
         batch.begin();
 
-        //	batch.draw(img, 0, 0);
-        float x, y;
 
         batch.setProjectionMatrix(camera.combined);
         batch.draw(img, -250, -300, 800, 800);
-//        for (int xp = 0; xp < 10; xp++) {
-//            for (int yp = 0; yp < 10; yp++) {
-//                x = xp * 150;
-//                y =  yp * 150;
-//                float dx, dy;
-//                dx = (camera.position.x - x) / -40;
-//                dy = (camera.position.y - y) / -40;
-//                //   System.out.println(dx);
-//
-//                for (int i = 0; i < 5; i++) {
-//                    batch.draw(img1, x + i * dx, y + i * dy, 100, 100);
-//                }
-//
-//                for (int i = 5; i < 10; i++) {
-//                    batch.draw(img3, x + i * dx, y + i * dy, 100, 100);
-//                }
-//
-//            }
-//
-//        }
-        ////////////////////////kresty
-
-        x = - 50; y = - 100;
-        float dx, dy;
-        dx = (camera.position.x - x) / -40;
-        dy = (camera.position.y - y) / -40;
-        for (int i = 0; i < 20; i++) {
-            batch.draw(imgk1, x + i * dx, y + i * dy, 100, 100);
-        }
-
-        for (int i = 20; i < 24; i++) {
-            batch.draw(imgk2, x + i * dx, y + i * dy, 100, 100);
-        }
-
-        for (int i = 24; i < 35; i++) {
-            batch.draw(imgk1, x + i * dx, y + i * dy, 100, 100);
-        }
 
 
-//		batch.draw(img3, 0, 0,100,100);
-
-        this.bash.randerSpriteStack(camera.position.x,camera.position.y);
-        this.bash1.randerSpriteStack(camera.position.x,camera.position.y);
-            batch.end();
+        this.bash.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
+        this.bash1.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
+        this.krest.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
+        batch.end();
 
     }
 

@@ -5,28 +5,60 @@ import com.badlogic.gdx.InputProcessor;
 public class MyInputProcessor implements InputProcessor {
     float x;
     float y;
+    float rcam;
+    float av;
     public MyInputProcessor() {
         x = 0;
         y = 0;
+        rcam = 0;
+        av = 0;
     }
 
     public boolean keyDown (int keycode) {
-
+      //  System.out.println(keycode);
         if(keycode == 19){
             System.out.println("up");
             y +=10;
+            return false;
         }
         if(keycode == 20){
             System.out.println("down");
             y -=10;
+            return false;
         }
         if(keycode == 21){
             System.out.println("left");
             x -=10;
+            return false;
         }
         if(keycode == 22){
             System.out.println("richt");
             x +=10;
+            return false;
+        }
+
+        if(keycode == 51){
+            System.out.println("rcamR");
+            rcam +=.5f;
+            return false;
+        }
+
+        if(keycode == 45){
+            System.out.println("rcamL");
+            rcam -=.5f;
+        }
+
+        if(keycode == 29){
+            System.out.println("rcamR");
+            av +=5;
+            System.out.println(av);
+            return false;
+        }
+
+        if(keycode == 54){
+            System.out.println("rcamL");
+            System.out.println(av);
+            av -=5;
         }
 
         return false;
