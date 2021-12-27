@@ -11,21 +11,31 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
-    Texture img, img1, img2, img3, imgk1, imgk2;
+    Texture img, img1, img2, img3, imgk1, imgk2, showT;
     OrthographicCamera camera;
     Viewport viewport;
+
+
 
     float timer = 0;
 
     MyInputProcessor inputProcessor;
 
     SpriteStack bash, bash1, krest;
+    SpriteStackPrecipitation show;
+    ArrayList<SpriteStack> arrSS;
+
+    ArrayList<SpriteStackPrecipitation> precipitations;
 
 
     @Override
     public void create() {
+        arrSS = new ArrayList<>();
+        precipitations = new ArrayList<>();
         batch = new SpriteBatch();
         img = new Texture("12.png");
         img1 = new Texture("1.png");
@@ -34,6 +44,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         imgk1 = new Texture("11.png");
         imgk2 = new Texture("21.png");
+        showT = new Texture("show.png");
 
 
         inputProcessor = new MyInputProcessor();
@@ -46,21 +57,25 @@ public class MyGdxGame extends ApplicationAdapter {
         viewport.apply(); // true = center camera
 
 
-        bash = new SpriteStack(150, 200, batch);
-        bash.addTexture(img1, 8);
-        bash.addTexture(img3, 5);
-        bash.addTexture(img1, 8);
-        bash.addTexture(img3, 5);
 
-        bash1 = new SpriteStack(1, 0, batch);
-        bash1.addTexture(img1, 8);
-        bash1.addTexture(img3, 3);
+        for (int i = 0; i < 150; i++) {
+            show = new SpriteStackPrecipitation(0,10,batch);
+            show.addTexture(showT);
+            precipitations.add(show);
+        }
 
-        krest = new SpriteStack(-50, -100, batch);
-        krest.addTexture(imgk1, 20);
-        krest.addTexture(imgk2, 4);
-        krest.addTexture(imgk1, 10);
-
+        for (int i = -15; i < 15; i++) {
+            for (int j = -15; j < 15; j++) {
+                bash = new SpriteStack(200 * i + MathUtils.random(-30, 30), 200 * j + MathUtils.random(-30, 30), batch);
+                bash.addTexture(img1, MathUtils.random(5, 20));
+                bash.addTexture(img3, MathUtils.random(3, 10));
+                if (MathUtils.randomBoolean()) {
+                    bash.addTexture(img1, MathUtils.random(5, 20));
+                    bash.addTexture(img3, MathUtils.random(3, 10));
+                }
+                arrSS.add(bash);
+            }
+        }
 
     }
 
@@ -86,9 +101,17 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.draw(img, -250, -300, 800, 800);
 
 
-        this.bash.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
-        this.bash1.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
-        this.krest.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
+//        this.bash.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
+//        this.bash1.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
+//        this.krest.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
+
+        for (int i = 0; i < arrSS.size(); i++) {
+            arrSS.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
+        }
+        for (int i = 0; i < precipitations.size(); i++) {
+            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime());
+        }
+
         batch.end();
 
     }

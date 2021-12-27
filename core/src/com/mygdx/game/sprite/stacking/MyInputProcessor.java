@@ -18,22 +18,22 @@ public class MyInputProcessor implements InputProcessor {
       //  System.out.println(keycode);
         if(keycode == 19){
             System.out.println("up");
-            y +=10;
+            y +=100;
             return false;
         }
         if(keycode == 20){
             System.out.println("down");
-            y -=10;
+            y -=100;
             return false;
         }
         if(keycode == 21){
             System.out.println("left");
-            x -=10;
+            x -=100;
             return false;
         }
         if(keycode == 22){
             System.out.println("richt");
-            x +=10;
+            x +=100;
             return false;
         }
 

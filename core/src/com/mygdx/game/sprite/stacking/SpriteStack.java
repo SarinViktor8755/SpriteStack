@@ -23,7 +23,7 @@ public class SpriteStack {
         //this.viewingAngle = viewingAngle;
     }
 
-    public SpriteStack( float x, float y,SpriteBatch sb) {
+    public SpriteStack(float x, float y,SpriteBatch sb) {
         this.sb = sb;
         this.sprite = new ArrayList<>();
         this.x = x;
@@ -34,7 +34,9 @@ public class SpriteStack {
     public void randerSpriteStack(float camX, float camY, Vector3 angelCamera,float viewingAngle) {
        // System.out.println(angelCamera);
         dx = ((camX - x) / -300) + (angelCamera.x * viewingAngle/10);
+        if(Math.abs(camX- x) > 600) return;
         dy = ((camY - y) / -300) + (angelCamera.y * viewingAngle/10);
+        if(Math.abs(camY- y) > 600) return;
 
         for (int i = 0; i < sprite.size(); i++) {
             sb.draw(sprite.get(i), x + i * dx, y + i * dy, 100, 100);
@@ -50,6 +52,9 @@ public class SpriteStack {
             this.sprite.add(texture);
         }
     }
+
+
+
 
 
 }
