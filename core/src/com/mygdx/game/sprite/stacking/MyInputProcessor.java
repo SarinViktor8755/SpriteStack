@@ -17,46 +17,46 @@ public class MyInputProcessor implements InputProcessor {
     public boolean keyDown (int keycode) {
       //  System.out.println(keycode);
         if(keycode == 19){
-            System.out.println("up");
+         //   System.out.println("up");
             y +=100;
             return false;
         }
         if(keycode == 20){
-            System.out.println("down");
+           // System.out.println("down");
             y -=100;
             return false;
         }
         if(keycode == 21){
-            System.out.println("left");
+         //   System.out.println("left");
             x -=100;
             return false;
         }
         if(keycode == 22){
-            System.out.println("richt");
+      //      System.out.println("richt");
             x +=100;
             return false;
         }
 
         if(keycode == 51){
-            System.out.println("rcamR");
+        //    System.out.println("rcamR");
             rcam +=.5f;
             return false;
         }
 
         if(keycode == 45){
-            System.out.println("rcamL");
+           // System.out.println("rcamL");
             rcam -=.5f;
         }
 
         if(keycode == 29){
-            System.out.println("rcamR");
+        //    System.out.println("rcamR");
             av +=5;
             System.out.println(av);
             return false;
         }
 
         if(keycode == 54){
-            System.out.println("rcamL");
+        //    System.out.println("rcamL");
             System.out.println(av);
             av -=5;
         }

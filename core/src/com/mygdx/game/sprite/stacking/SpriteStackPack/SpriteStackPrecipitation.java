@@ -47,19 +47,17 @@ public class SpriteStackPrecipitation implements SpriteStackInterface {
         if (hide < 0) restart(camX, camY);
         // System.out.println(hide);
 
-        this.x += MathUtils.random(-15 * deltaTime, +15 * deltaTime);
-
-        this.x += xw * deltaTime;
-        this.y += yw * deltaTime;
+//        this.x += xw * deltaTime;
+//        this.y += yw * deltaTime;
 
         dx = ((camX - x) / -300) + (angelCamera.x * viewingAngle / 10);
         if (Math.abs(camX - x) > 600) return;
         dy = ((camY - y) / -300) + (angelCamera.y * viewingAngle / 10);
         if (Math.abs(camY - y) > 600) return;
-        float h = MathUtils.map(0, 250, 0, 10, hide);
+        float h = MathUtils.map(0, 50, 10, 15, hide);
 
-        sb.setColor(1, 1, 1, 1.5f - h / 10);
-        sb.draw(texture, (x + dx * dx) - h / 2, (y + dx * dy), h, h);
+        sb.setColor(1, 1, 1, 1f - h / 50f);
+        sb.draw(texture, (x +  this.hide * dx) - h / 2, (y +  this.hide * dy), h, h);
         sb.setColor(1, 1, 1, 1);
     }
 
@@ -68,10 +66,10 @@ public class SpriteStackPrecipitation implements SpriteStackInterface {
     }
 
     private void restart(float camX, float camY) {
-        this.hide = MathUtils.random(150, 250);
+        this.hide = MathUtils.random(50, 110);
         this.x = camX + MathUtils.random(-300, 300);
         this.y = camY + MathUtils.random(-300, 300);
-        this.speed = camY + MathUtils.random(90, 250);
+        this.speed =  MathUtils.random(30, 80);
     }
 
     @Override

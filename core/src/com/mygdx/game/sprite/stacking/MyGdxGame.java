@@ -60,7 +60,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 
-        for (int i = 0; i < 150; i++) {
+        for (int i = 0; i < 50; i++) {
             show = new SpriteStackPrecipitation(0,10,batch);
             show.addTexture(showT);
             precipitations.add(show);
@@ -81,18 +81,12 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
         for (int i = 0; i < 15; i++) {
-
                 bash = new SpriteStack(200 * i + MathUtils.random(-30, 30),  -250 + MathUtils.random(-30, 30), batch);
-
                     bash.addTexture(imgk1, MathUtils.random(15, 25));
                     bash.addTexture(imgk2, 4);
                     bash.addTexture(imgk1, MathUtils.random(7, 12));
-
-
                 arrSS.add(bash);
             }
-
-
     }
 
     @Override
@@ -117,15 +111,11 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.draw(img, -250, -300, 800, 800);
 
 
-//        this.bash.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
-//        this.bash1.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
-//        this.krest.randerSpriteStack(camera.position.x, camera.position.y, camera.up,inputProcessor.av);
-
         for (int i = 0; i < arrSS.size(); i++) {
             arrSS.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
-           // System.out.println(arrSS.get(i).getDistance(camera.position.x, camera.position.y));
+            System.out.println(arrSS.get(i).getDistance(camera.position.x, camera.position.y));
         }
-      //  System.out.println("-------");
+        System.out.println("-------");
 
         for (int i = 0; i < precipitations.size(); i++) {
             precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime());
