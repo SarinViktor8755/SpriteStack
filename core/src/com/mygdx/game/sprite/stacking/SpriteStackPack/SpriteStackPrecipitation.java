@@ -47,14 +47,14 @@ public class SpriteStackPrecipitation implements SpriteStackInterface {
         if (hide < 0) restart(camX, camY);
         // System.out.println(hide);
 
-//        this.x += xw * deltaTime;
-//        this.y += yw * deltaTime;
+        this.x += xw * deltaTime;
+        this.y += yw * deltaTime;
 
         dx = ((camX - x) / -300) + (angelCamera.x * viewingAngle / 10);
         if (Math.abs(camX - x) > 600) return;
         dy = ((camY - y) / -300) + (angelCamera.y * viewingAngle / 10);
         if (Math.abs(camY - y) > 600) return;
-        float h = MathUtils.map(0, 50, 10, 15, hide);
+        float h = MathUtils.map(0, 50, 5, 10, hide);
 
         sb.setColor(1, 1, 1, 1f - h / 50f);
         sb.draw(texture, (x +  this.hide * dx) - h / 2, (y +  this.hide * dy), h, h);

@@ -14,6 +14,8 @@ import com.mygdx.game.sprite.stacking.SpriteStackPack.SpriteStack;
 import com.mygdx.game.sprite.stacking.SpriteStackPack.SpriteStackPrecipitation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
@@ -33,6 +35,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     ArrayList<SpriteStackPrecipitation> precipitations;
 
+    HashMap<Float,SpriteStack> stick;
 
     @Override
     public void create() {
@@ -87,6 +90,8 @@ public class MyGdxGame extends ApplicationAdapter {
                     bash.addTexture(imgk1, MathUtils.random(7, 12));
                 arrSS.add(bash);
             }
+
+        stick = new HashMap<>();
     }
 
     @Override
@@ -110,16 +115,29 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
         batch.draw(img, -250, -300, 800, 800);
 
+        for (int i = 0; i < precipitations.size()/2; i++) {
+            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime());
+        }
 
+        stick.clear();
         for (int i = 0; i < arrSS.size(); i++) {
-            arrSS.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
-            System.out.println(arrSS.get(i).getDistance(camera.position.x, camera.position.y));
+            stick.put(arrSS.get(i).getDistance(camera.position.x, camera.position.y),arrSS.get(i));
+//            arrSS.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
+//            System.out.println(arrSS.get(i).getDistance(camera.position.x, camera.position.y));
+        }
+
+        for (Float key: stick.keySet()){
+            System.out.println(stick.size());
+            stick.get(key).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
         }
         System.out.println("-------");
 
-        for (int i = 0; i < precipitations.size(); i++) {
+
+        for (int i = precipitations.size()/2; i < precipitations.size(); i++) {
             precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime());
         }
+
+
 
         if(MathUtils.randomBoolean(.01f)){
             System.out.println("randodWindow");
