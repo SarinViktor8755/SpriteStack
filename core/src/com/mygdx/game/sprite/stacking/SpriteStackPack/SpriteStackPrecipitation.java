@@ -17,6 +17,8 @@ public class SpriteStackPrecipitation implements SpriteStackInterface{
     float hide; /// высота
     // float viewingAngle; // угол обзора
 
+    public static float xw,yw;
+
     static Vector2 temp;
 
 
@@ -25,6 +27,10 @@ public class SpriteStackPrecipitation implements SpriteStackInterface{
         this.x = x;
         this.y = y;
         this.hide = 150;
+
+
+        xw = 20;
+        yw = 15;
         //this.viewingAngle = viewingAngle;
     }
 
@@ -33,6 +39,9 @@ public class SpriteStackPrecipitation implements SpriteStackInterface{
 
         this.x = x;
         this.y = y;
+
+        xw = 20;
+        yw = 15;
         // this.viewingAngle = 45; // 0 вид сверху
     }
 
@@ -44,13 +53,16 @@ public class SpriteStackPrecipitation implements SpriteStackInterface{
 
         this.x += MathUtils.random(-15*deltaTime,+15*deltaTime);
 
+        this.x += xw * deltaTime;
+        this.y += yw * deltaTime;
+
         dx = ((camX - x) / -300) + (angelCamera.x * viewingAngle / 10);
         if (Math.abs(camX - x) > 600) return;
         dy = ((camY - y) / -300) + (angelCamera.y * viewingAngle / 10);
         if (Math.abs(camY - y) > 600) return;
-        float h = 10 / (150 / hide);
+        float h = MathUtils.map(0,250,0,10,hide);
 
-        sb.setColor(1, 1, 1, .8f);
+        sb.setColor(1, 1, 1, 1.5f-h/10);
         sb.draw(texture, (x + dx * dx) - h / 2, (y + dx * dy), h, h);
         sb.setColor(1, 1, 1, 1);
     }
@@ -67,6 +79,11 @@ public class SpriteStackPrecipitation implements SpriteStackInterface{
     @Override
     public float getDistance(float camX, float camY) {
         return temp.set(x,y).dst2(x,y);
+    }
+
+    public static void randodWindow(){
+        SpriteStackPrecipitation.xw = MathUtils.random(-50,50);
+        SpriteStackPrecipitation.yw = MathUtils.random(-50,50);
     }
 
 }

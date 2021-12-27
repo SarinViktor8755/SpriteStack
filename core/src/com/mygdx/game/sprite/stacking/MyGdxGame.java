@@ -123,13 +123,17 @@ public class MyGdxGame extends ApplicationAdapter {
 
         for (int i = 0; i < arrSS.size(); i++) {
             arrSS.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
-            System.out.println(arrSS.get(i).getDistance(camera.position.x, camera.position.y));
+           // System.out.println(arrSS.get(i).getDistance(camera.position.x, camera.position.y));
         }
-        System.out.println("-------");
+      //  System.out.println("-------");
 
         for (int i = 0; i < precipitations.size(); i++) {
             precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime());
         }
+
+        if(MathUtils.randomBoolean(.01f)){
+            System.out.println("randodWindow");
+            SpriteStackPrecipitation.randodWindow();}
 
         batch.end();
 
