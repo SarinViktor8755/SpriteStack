@@ -1,18 +1,21 @@
-package com.mygdx.game.sprite.stacking;
+package com.mygdx.game.sprite.stacking.SpriteStackPack;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 
-public class SpriteStack {
+public class SpriteStack implements SpriteStackInterface{
     SpriteBatch sb;
     ArrayList<Texture> sprite;
 
     float x, y; // позиция
     float dx, dy; // смещение слоев
    // float viewingAngle; // угол обзора
+
+    static Vector2 temp  = new Vector2();
 
 
     public SpriteStack( float x, float y,SpriteBatch sb,float viewingAngle) {
@@ -54,7 +57,8 @@ public class SpriteStack {
     }
 
 
-
-
-
+    @Override
+    public float getDistance(float camX, float camY) {
+        return temp.set(camX,camY).dst2(x,y);
+    }
 }

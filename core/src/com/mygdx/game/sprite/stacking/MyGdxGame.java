@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.sprite.stacking.SpriteStackPack.SpriteStack;
+import com.mygdx.game.sprite.stacking.SpriteStackPack.SpriteStackPrecipitation;
 
 import java.util.ArrayList;
 
@@ -64,8 +66,8 @@ public class MyGdxGame extends ApplicationAdapter {
             precipitations.add(show);
         }
 
-        for (int i = -15; i < 15; i++) {
-            for (int j = -15; j < 15; j++) {
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 2; j++) {
                 bash = new SpriteStack(200 * i + MathUtils.random(-30, 30), 200 * j + MathUtils.random(-30, 30), batch);
                 bash.addTexture(img1, MathUtils.random(5, 20));
                 bash.addTexture(img3, MathUtils.random(3, 10));
@@ -76,6 +78,20 @@ public class MyGdxGame extends ApplicationAdapter {
                 arrSS.add(bash);
             }
         }
+
+
+        for (int i = 0; i < 15; i++) {
+
+                bash = new SpriteStack(200 * i + MathUtils.random(-30, 30),  -250 + MathUtils.random(-30, 30), batch);
+
+                    bash.addTexture(imgk1, MathUtils.random(15, 25));
+                    bash.addTexture(imgk2, 4);
+                    bash.addTexture(imgk1, MathUtils.random(7, 12));
+
+
+                arrSS.add(bash);
+            }
+
 
     }
 
@@ -107,7 +123,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
         for (int i = 0; i < arrSS.size(); i++) {
             arrSS.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
+            System.out.println(arrSS.get(i).getDistance(camera.position.x, camera.position.y));
         }
+        System.out.println("-------");
+
         for (int i = 0; i < precipitations.size(); i++) {
             precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime());
         }

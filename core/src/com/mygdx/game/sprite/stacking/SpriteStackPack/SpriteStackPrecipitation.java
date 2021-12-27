@@ -1,13 +1,14 @@
-package com.mygdx.game.sprite.stacking;
+package com.mygdx.game.sprite.stacking.SpriteStackPack;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 
-public class SpriteStackPrecipitation {
+public class SpriteStackPrecipitation implements SpriteStackInterface{
     SpriteBatch sb;
     Texture texture;
 
@@ -15,6 +16,8 @@ public class SpriteStackPrecipitation {
     float dx, dy; // смещение слоев
     float hide; /// высота
     // float viewingAngle; // угол обзора
+
+    static Vector2 temp;
 
 
     public SpriteStackPrecipitation(float x, float y, SpriteBatch sb, float viewingAngle) {
@@ -61,6 +64,9 @@ public class SpriteStackPrecipitation {
         this.x = camX + MathUtils.random(-300, 300);
         this.y = camY + MathUtils.random(-300, 300);
     }
-
+    @Override
+    public float getDistance(float camX, float camY) {
+        return temp.set(x,y).dst2(x,y);
+    }
 
 }
