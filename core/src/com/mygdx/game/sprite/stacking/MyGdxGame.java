@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
-    Texture img, img1, img2, img3, imgk1, imgk2, showT;
+    Texture img, img1, img2, img3, imgk1, imgk2, showT, logo;
     OrthographicCamera camera;
     Viewport viewport;
 
@@ -37,8 +37,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
     HashMap<Float,SpriteStack> stick;
 
+    ArrayList<Snowdrift> snowdrifts;
+
     @Override
     public void create() {
+        snowdrifts = new ArrayList<>();
         arrSS = new ArrayList<>();
         precipitations = new ArrayList<>();
         batch = new SpriteBatch();
@@ -50,6 +53,7 @@ public class MyGdxGame extends ApplicationAdapter {
         imgk1 = new Texture("11.png");
         imgk2 = new Texture("21.png");
         showT = new Texture("show.png");
+        logo = new Texture("77.png");
 
 
         inputProcessor = new MyInputProcessor();
@@ -115,8 +119,12 @@ public class MyGdxGame extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
         batch.draw(img, -250, -300, 800, 800);
 
+        for (int i = 0; i < snowdrifts.size(); i++) {
+            batch.draw(logo, snowdrifts.get(i).x, snowdrifts.get(i).y, 8, 8);
+        }
+
         for (int i = 0; i < precipitations.size()/2; i++) {
-            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime());
+            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime(),this);
         }
 
         stick.clear();
@@ -130,11 +138,12 @@ public class MyGdxGame extends ApplicationAdapter {
             System.out.println(stick.size());
             stick.get(key).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
         }
-        System.out.println("-------");
+       // System.out.println("------- " + camera.up.);
+
 
 
         for (int i = precipitations.size()/2; i < precipitations.size(); i++) {
-            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime());
+            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime(),this);
         }
 
 
@@ -142,8 +151,13 @@ public class MyGdxGame extends ApplicationAdapter {
         if(MathUtils.randomBoolean(.01f)){
             System.out.println("randodWindow");
             SpriteStackPrecipitation.randodWindow();}
-
         batch.end();
+
+    }
+
+    public void addSnowdrift(float x, float y){
+        this.snowdrifts.add(new Snowdrift(x,y));
+
 
     }
 
