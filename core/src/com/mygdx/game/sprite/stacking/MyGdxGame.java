@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
-    Texture img, img1, img2, img3, imgk1, imgk2, showT, logo;
+    Texture img, img1, img2, img3, imgk1, imgk2, showT, logo,Z0,Z1;
     OrthographicCamera camera;
     Viewport viewport;
 
@@ -55,6 +55,8 @@ public class MyGdxGame extends ApplicationAdapter {
         showT = new Texture("show.png");
         logo = new Texture("77.png");
 
+        Z0= new Texture("Z0.png");
+        Z1= new Texture("Z1.png");
 
         inputProcessor = new MyInputProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
@@ -94,6 +96,15 @@ public class MyGdxGame extends ApplicationAdapter {
                     bash.addTexture(imgk1, MathUtils.random(7, 12));
                 arrSS.add(bash);
             }
+
+
+        for (int i = 0; i < 15; i++) {
+            bash = new SpriteStack(-0,  -60,250,50, batch);
+            bash.addTexture(Z0, 12);
+            bash.addTexture(Z1, 3);
+            bash.addTexture(Z0, 3);
+            arrSS.add(bash);
+        }
 
         stick = new HashMap<>();
     }

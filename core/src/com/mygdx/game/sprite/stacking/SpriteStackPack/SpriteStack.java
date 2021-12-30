@@ -13,6 +13,7 @@ public class SpriteStack implements SpriteStackInterface{
 
     float x, y; // позиция
     float dx, dy; // смещение слоев
+    float w, h; // размеры
    // float viewingAngle; // угол обзора
 
     static Vector2 temp  = new Vector2();
@@ -31,7 +32,19 @@ public class SpriteStack implements SpriteStackInterface{
         this.sprite = new ArrayList<>();
         this.x = x;
         this.y = y;
+        this.w = 50;
+        this.h = 50;
        // this.viewingAngle = 45; // 0 вид сверху
+    }
+
+    public SpriteStack(float x, float y,float with,float hide,SpriteBatch sb) {
+        this.sb = sb;
+        this.sprite = new ArrayList<>();
+        this.x = x;
+        this.y = y;
+        this.w = with;
+        this.h = hide;
+        // this.viewingAngle = 45; // 0 вид сверху
     }
 
     public void randerSpriteStack(float camX, float camY, Vector3 angelCamera,float viewingAngle) {
@@ -42,7 +55,7 @@ public class SpriteStack implements SpriteStackInterface{
         if(Math.abs(camY- y) > 600) return;
 
         for (int i = 0; i < sprite.size(); i++) {
-            sb.draw(sprite.get(i), x + i * dx, y + i * dy, 100, 100);
+            sb.draw(sprite.get(i), x + i * dx, y + i * dy, w, h);
         }
     }
 
