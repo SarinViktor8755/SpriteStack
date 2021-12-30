@@ -23,8 +23,6 @@ public class MyGdxGame extends ApplicationAdapter {
     OrthographicCamera camera;
     Viewport viewport;
 
-
-
     float timer = 0;
 
     MyInputProcessor inputProcessor;
@@ -66,7 +64,6 @@ public class MyGdxGame extends ApplicationAdapter {
         camera.position.set(inputProcessor.getX(), inputProcessor.getY(), 0);
         viewport = new FitViewport(800, 480, camera);
         viewport.apply(); // true = center camera
-
 
 
         for (int i = 0; i < 50; i++) {

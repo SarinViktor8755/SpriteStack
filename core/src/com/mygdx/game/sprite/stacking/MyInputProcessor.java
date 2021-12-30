@@ -11,7 +11,7 @@ public class MyInputProcessor implements InputProcessor {
         x = 0;
         y = 0;
         rcam = 0;
-        av = 0;
+        av = 18;
     }
 
     public boolean keyDown (int keycode) {
