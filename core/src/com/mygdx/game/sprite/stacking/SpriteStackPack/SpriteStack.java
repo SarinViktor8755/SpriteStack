@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.sprite.stacking.MyGdxGame;
 
 import java.util.ArrayList;
 
@@ -68,6 +69,7 @@ public class SpriteStack implements SpriteStackInterface{
             this.sprite.add(texture);
         }
     }
+
 
 
     @Override

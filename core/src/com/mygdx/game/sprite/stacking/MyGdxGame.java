@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -19,9 +20,11 @@ import java.util.HashMap;
 
 public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
-    Texture img, img1, img2, img3, imgk1, imgk2, showT, logo,Z0,Z1;
+    Texture img, img1, img2, img3, imgk1, imgk2, showT, logo, Z0, Z1;
     OrthographicCamera camera;
     Viewport viewport;
+
+    Vector2 angel = new Vector2();
 
     float timer = 0;
 
@@ -33,9 +36,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
     ArrayList<SpriteStackPrecipitation> precipitations;
 
-    HashMap<Float,SpriteStack> stick;
+    HashMap<Float, SpriteStack> stick;
 
     ArrayList<Snowdrift> snowdrifts;
+
 
     @Override
     public void create() {
@@ -53,8 +57,8 @@ public class MyGdxGame extends ApplicationAdapter {
         showT = new Texture("show.png");
         logo = new Texture("77.png");
 
-        Z0= new Texture("Z0.png");
-        Z1= new Texture("Z1.png");
+        Z0 = new Texture("Z0.png");
+        Z1 = new Texture("Z1.png");
 
         inputProcessor = new MyInputProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
@@ -67,7 +71,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
         for (int i = 0; i < 50; i++) {
-            show = new SpriteStackPrecipitation(0,10,batch);
+            show = new SpriteStackPrecipitation(0, 10, batch);
             show.addTexture(showT);
             precipitations.add(show);
         }
@@ -87,16 +91,16 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
         for (int i = 0; i < 15; i++) {
-                bash = new SpriteStack(200 * i + MathUtils.random(-30, 30),  -250 + MathUtils.random(-30, 30), batch);
-                    bash.addTexture(imgk1, MathUtils.random(15, 25));
-                    bash.addTexture(imgk2, 4);
-                    bash.addTexture(imgk1, MathUtils.random(7, 12));
-                arrSS.add(bash);
-            }
+            bash = new SpriteStack(200 * i + MathUtils.random(-30, 30), -250 + MathUtils.random(-30, 30), batch);
+            bash.addTexture(imgk1, MathUtils.random(15, 25));
+            bash.addTexture(imgk2, 4);
+            bash.addTexture(imgk1, MathUtils.random(7, 12));
+            arrSS.add(bash);
+        }
 
 
         for (int i = 0; i < 15; i++) {
-            bash = new SpriteStack(-0,  -60,250,50, batch);
+            bash = new SpriteStack(-0, -60, 250, 50, batch);
             bash.addTexture(Z0, 12);
             bash.addTexture(Z1, 3);
             bash.addTexture(Z0, 3);
@@ -112,61 +116,58 @@ public class MyGdxGame extends ApplicationAdapter {
         camera.rotate(inputProcessor.rcam);
         //inputProcessor.rcam = 0;
         //   System.out.println(camera.up);
-
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
         timer += Gdx.graphics.getDeltaTime() * 2;
         ScreenUtils.clear(.3f, .3f, .3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-
-
         batch.setProjectionMatrix(camera.combined);
         batch.draw(img, -250, -300, 800, 800);
 
         for (int i = 0; i < snowdrifts.size(); i++) {
+            batch.setColor(1,1,1,MathUtils.map(0,350,.6f,1,i));
             batch.draw(logo, snowdrifts.get(i).x, snowdrifts.get(i).y, 8, 8);
+            batch.setColor(1,1,1,1);
         }
 
-        for (int i = 0; i < precipitations.size()/2; i++) {
-            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime(),this);
+        for (int i = 0; i < precipitations.size() / 2; i++) {
+            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av, Gdx.graphics.getDeltaTime(), this);
         }
 
         stick.clear();
         for (int i = 0; i < arrSS.size(); i++) {
-            stick.put(arrSS.get(i).getDistance(camera.position.x, camera.position.y),arrSS.get(i));
+            stick.put(arrSS.get(i).getDistance(camera.position.x, camera.position.y), arrSS.get(i));
 //            arrSS.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
 //            System.out.println(arrSS.get(i).getDistance(camera.position.x, camera.position.y));
         }
 
-        for (Float key: stick.keySet()){
-            System.out.println(stick.size());
+        for (Float key : stick.keySet()) {
+           // System.out.println(stick.size());
             stick.get(key).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av);
         }
-       // System.out.println("------- " + camera.up.);
+        // System.out.println("------- " + camera.up.);
 
 
-
-        for (int i = precipitations.size()/2; i < precipitations.size(); i++) {
-            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y,camera.up, inputProcessor.av,Gdx.graphics.getDeltaTime(),this);
+        for (int i = precipitations.size() / 2; i < precipitations.size(); i++) {
+            precipitations.get(i).randerSpriteStack(camera.position.x, camera.position.y, camera.up, inputProcessor.av, Gdx.graphics.getDeltaTime(), this);
         }
-
-
-
-        if(MathUtils.randomBoolean(.01f)){
-            System.out.println("randodWindow");
-            SpriteStackPrecipitation.randodWindow();}
         batch.end();
+        angel.set(camera.up.x,camera.up.y);
+        System.out.println(camera.position+"  "+angel.angleDeg());
 
+        if (MathUtils.randomBoolean(.01f)) {
+            System.out.println("randodWindow");
+            SpriteStackPrecipitation.randodWindow();
+        }
     }
 
-    public void addSnowdrift(float x, float y){
-        this.snowdrifts.add(new Snowdrift(x,y));
-
-
+    public void addSnowdrift(float x, float y) {
+        if (this.snowdrifts.size() < 350)
+            this.snowdrifts.add(new Snowdrift(x, y));
+        else this.snowdrifts.get(MathUtils.random(this.snowdrifts.size() - 1)).setCoordinat(x, y);
     }
 
     @Override

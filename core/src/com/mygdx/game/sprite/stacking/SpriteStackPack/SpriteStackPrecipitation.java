@@ -93,9 +93,9 @@ public class SpriteStackPrecipitation implements SpriteStackInterface {
     }
 
     private void restart(float camX, float camY) {
-        this.hide = MathUtils.random(50, 110);
-        this.x = camX + MathUtils.random(-300, 300);
-        this.y = camY + MathUtils.random(-300, 300);
+        this.hide = MathUtils.random(50, 80);
+        this.x = camX + MathUtils.random(-500, 500);
+        this.y = camY + MathUtils.random(-500, 500);
         this.speed = MathUtils.random(30, 80);
     }
 

@@ -7,4 +7,9 @@ public class Snowdrift {
         this.x = x;
         this.y = y;
     }
+
+    public void setCoordinat(float x, float y){
+        this.x = x;
+        this.y = y;
+    }
 }

@@ -10,7 +10,7 @@ public class MyInputProcessor implements InputProcessor {
     public MyInputProcessor() {
         x = 0;
         y = 0;
-        rcam = 0;
+        rcam = .5f;
         av = 18;
     }
 
@@ -39,18 +39,18 @@ public class MyInputProcessor implements InputProcessor {
 
         if(keycode == 51){
         //    System.out.println("rcamR");
-            rcam +=.5f;
+            rcam +=.25f;
             return false;
         }
 
         if(keycode == 45){
            // System.out.println("rcamL");
-            rcam -=.5f;
+            rcam -=.25f;
         }
 
         if(keycode == 29){
         //    System.out.println("rcamR");
-            av +=5;
+            av +=2;
             System.out.println(av);
             return false;
         }
@@ -58,7 +58,7 @@ public class MyInputProcessor implements InputProcessor {
         if(keycode == 54){
         //    System.out.println("rcamL");
             System.out.println(av);
-            av -=5;
+            av -=2;
         }
 
         return false;
@@ -83,7 +83,7 @@ public class MyInputProcessor implements InputProcessor {
 
     public boolean touchDown (int x, int y, int pointer, int button) {
         System.out.println(button);
-        System.out.println("1111");
+    //    System.out.println("1111");
         return false;
     }
 
